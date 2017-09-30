@@ -3,7 +3,12 @@
 class Singleton {
 private:
     Singleton();
-    ~Signleton();
+    ~Singleton();
     Singleton(const Singleton &);
+    Singleton & operator=(const Singleton &);
+    static Singleton * instance;
+public:
+    static Singleton * getInstance();
+    void doSomething();
 };
 #endif // _SINGLETON_H_
