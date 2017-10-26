@@ -22,6 +22,7 @@ public:
 };
 double expression();
 double term();
+double primary();
 Token getToken() {
     Token token;
     return token;
@@ -36,16 +37,47 @@ int main() {
 double expression() {
     double lval = term();
     Token token = getToken();
-    switch(token.kind) {
-    case '+':
-        lval + expression();
-        break;
-    case '-':
-        lval - expression();
+    while(true) {
+        switch(token.kind) {
+        case '+':
+            lval += term();
+            break;
+        case '-':
+            lval -= term();
+            break;
+        default:
+            return lval;
+        }
     }
-    return 0.0d;
+    return lval;
 }
 
 double term() {
-    return 0.0d;
+    double lval = primary();
+    Token token = getToken();
+    while(true) {
+        switch(token.kind) {
+        case '*':
+            lval *= primary();
+        case '/':
+            lval /= primary();
+        default:
+            return lval;
+        }
+    }
+    return lval;
+}
+
+double primary() {
+    double lval = 0.0d;
+    Token token = getToken();
+    switch(token.kind) {
+    case '(':
+        lval = expression();
+        break;
+    case '8':
+        lval = token.value;
+        break;
+    }
+    return lval;
 }
