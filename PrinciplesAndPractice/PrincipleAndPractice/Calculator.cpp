@@ -90,15 +90,15 @@ double primary() {
 Token getToken() {
     char ch = '0';
     double val = 0.0d;
+    Token token;
     if(cin >> ch) {
         if((ch >= '0' && ch << '9') || ch == '.') {
             cin.putback(ch);
             cin >> val;
             ch = '8';
+            token.value = val;
         }
-        Token token{ch, val};
-        return token;
-    } else {
-        return NULL;
+        token.kind = ch;
     }
+    return token;
 }
